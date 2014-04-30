@@ -1,0 +1,46 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Born To Code{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/ftdefault/css/index.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+    <header>
+        {% block header %}
+
+        {% endblock %}
+    </header>
+
+    <nav>
+        {% block nav %}
+        
+        {% endblock %}
+    </nav>
+
+    <div id="content">
+        <aside>
+            {% block menu %}
+            {% endblock %}
+        </aside>
+        
+        <main>
+            {% block main %}
+
+            {% endblock %}
+        </main>
+    </div>
+
+    <footer>
+        {% block footer %}
+
+        {% endblock %}
+        <div id="copyright">
+            <span>
+                Best intra ever.<br />
+                &copy;Sconso for 42 School.
+            </span>
+        </div>
+    </footer>
+{% endblock %}

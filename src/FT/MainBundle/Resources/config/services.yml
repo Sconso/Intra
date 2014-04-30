@@ -1,0 +1,7 @@
+parameters:
+#    ft_main.example.class: FT\MainBundle\Example
+
+services:
+#    ft_main.example:
+#        class: %ft_main.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
