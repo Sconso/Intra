@@ -1,3 +1,0 @@
-ft_index:
-    path: /
-    defaults: { _controller: FTMainBundle:Default:index }
