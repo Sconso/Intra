@@ -134,8 +134,12 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
         }
 
         // ft_default_homepage
-        if (preg_match('#^/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
-            return $this->mergeDefaults(array_replace($matches, array('_route' => 'ft_default_homepage')), array (  '_controller' => 'FT\\DefaultBundle\\Controller\\DefaultController::indexAction',));
+        if (rtrim($pathinfo, '/') === '') {
+            if (substr($pathinfo, -1) !== '/') {
+                return $this->redirect($pathinfo.'/', 'ft_default_homepage');
+            }
+
+            return array (  '_controller' => 'FT\\DefaultBundle\\Controller\\DefaultController::indexAction',  '_route' => 'ft_default_homepage',);
         }
 
         if (0 === strpos($pathinfo, '/sonata/cache')) {

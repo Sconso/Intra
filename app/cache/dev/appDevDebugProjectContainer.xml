@@ -520,8 +520,8 @@
     <parameter key="jms_di_extra.disable_grep">false</parameter>
     <parameter key="jms_di_extra.doctrine_integration">true</parameter>
     <parameter key="jms_di_extra.cache_warmer.controller_file_blacklist" type="collection"/>
-    <parameter key="jms_di_extra.doctrine_integration.entity_manager.file">/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/app/cache/dev/jms_diextra/doctrine/EntityManager_536000041229b.php</parameter>
-    <parameter key="jms_di_extra.doctrine_integration.entity_manager.class">EntityManager536000041229b_546a8d27f194334ee012bfe64f629947b07e4919\__CG__\Doctrine\ORM\EntityManager</parameter>
+    <parameter key="jms_di_extra.doctrine_integration.entity_manager.file">/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/app/cache/dev/jms_diextra/doctrine/EntityManager_5363d332eaec6.php</parameter>
+    <parameter key="jms_di_extra.doctrine_integration.entity_manager.class">EntityManager5363d332eaec6_546a8d27f194334ee012bfe64f629947b07e4919\__CG__\Doctrine\ORM\EntityManager</parameter>
     <parameter key="security.secured_services" type="collection"/>
     <parameter key="security.access.method_interceptor.class">JMS\SecurityExtraBundle\Security\Authorization\Interception\MethodSecurityInterceptor</parameter>
     <parameter key="security.access.method_access_control" type="collection"/>
@@ -810,10 +810,10 @@
     <parameter key="sonata.user.admin.user.controller">SonataAdminBundle:CRUD</parameter>
     <parameter key="sonata.user.admin.group.controller">SonataAdminBundle:CRUD</parameter>
     <parameter key="sonata.user.impersonating" type="collection">
-      <parameter key="route">homepage</parameter>
+      <parameter key="route">ft_default_homepage</parameter>
       <parameter key="parameters" type="collection"/>
     </parameter>
-    <parameter key="sonata.user.google.authenticator.enabled">false</parameter>
+    <parameter key="sonata.user.google.authenticator.enabled">true</parameter>
     <parameter key="sonata.user.profile.form.type">sonata_user_profile</parameter>
     <parameter key="sonata.user.profile.form.name">sonata_user_profile_form</parameter>
     <parameter key="sonata.user.profile.form.validation_groups" type="collection">
@@ -943,6 +943,22 @@
           <argument>onSecurityInteractiveLogin</argument>
         </argument>
         <argument>0</argument>
+      </call>
+      <call method="addListenerService">
+        <argument>security.interactive_login</argument>
+        <argument type="collection">
+          <argument>sonata.user.google.authenticator.interactive_login_listener</argument>
+          <argument>onSecurityInteractiveLogin</argument>
+        </argument>
+        <argument>0</argument>
+      </call>
+      <call method="addListenerService">
+        <argument>kernel.request</argument>
+        <argument type="collection">
+          <argument>sonata.user.google.authenticator.request_listener</argument>
+          <argument>onCoreRequest</argument>
+        </argument>
+        <argument>-1</argument>
       </call>
       <call method="addSubscriberService">
         <argument>response_listener</argument>
@@ -1429,8 +1445,20 @@
       </call>
       <call method="addResource">
         <argument>xlf</argument>
+        <argument>/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.vi.xlf</argument>
+        <argument>vi</argument>
+        <argument>validators</argument>
+      </call>
+      <call method="addResource">
+        <argument>xlf</argument>
         <argument>/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.zh_CN.xlf</argument>
         <argument>zh_CN</argument>
+        <argument>validators</argument>
+      </call>
+      <call method="addResource">
+        <argument>xlf</argument>
+        <argument>/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.zh_TW.xlf</argument>
+        <argument>zh_TW</argument>
         <argument>validators</argument>
       </call>
       <call method="addResource">
@@ -1669,6 +1697,12 @@
       </call>
       <call method="addResource">
         <argument>xlf</argument>
+        <argument>/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.uk.xlf</argument>
+        <argument>uk</argument>
+        <argument>validators</argument>
+      </call>
+      <call method="addResource">
+        <argument>xlf</argument>
         <argument>/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.zh_CN.xlf</argument>
         <argument>zh_CN</argument>
         <argument>validators</argument>
@@ -1677,6 +1711,12 @@
         <argument>xlf</argument>
         <argument>/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.ar.xlf</argument>
         <argument>ar</argument>
+        <argument>security</argument>
+      </call>
+      <call method="addResource">
+        <argument>xlf</argument>
+        <argument>/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.bg.xlf</argument>
+        <argument>bg</argument>
         <argument>security</argument>
       </call>
       <call method="addResource">
@@ -1741,8 +1781,20 @@
       </call>
       <call method="addResource">
         <argument>xlf</argument>
+        <argument>/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.hr.xlf</argument>
+        <argument>hr</argument>
+        <argument>security</argument>
+      </call>
+      <call method="addResource">
+        <argument>xlf</argument>
         <argument>/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.hu.xlf</argument>
         <argument>hu</argument>
+        <argument>security</argument>
+      </call>
+      <call method="addResource">
+        <argument>xlf</argument>
+        <argument>/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.id.xlf</argument>
+        <argument>id</argument>
         <argument>security</argument>
       </call>
       <call method="addResource">
@@ -1845,6 +1897,18 @@
         <argument>xlf</argument>
         <argument>/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.ua.xlf</argument>
         <argument>ua</argument>
+        <argument>security</argument>
+      </call>
+      <call method="addResource">
+        <argument>xlf</argument>
+        <argument>/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.vi.xlf</argument>
+        <argument>vi</argument>
+        <argument>security</argument>
+      </call>
+      <call method="addResource">
+        <argument>xlf</argument>
+        <argument>/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.zh_CN.xlf</argument>
+        <argument>zh_CN</argument>
         <argument>security</argument>
       </call>
       <call method="addResource">
@@ -3219,7 +3283,7 @@
         </argument>
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>53600003edde8</argument>
+            <argument>5363d332cfe02</argument>
           </service>
         </argument>
         <argument type="service">
@@ -3233,7 +3297,7 @@
         </argument>
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>53600003edde8</argument>
+            <argument>5363d332cfe02</argument>
           </service>
         </argument>
       </argument>
@@ -3582,7 +3646,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.context"/>
-            <argument>53600003edde8</argument>
+            <argument>5363d332cfe02</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
           </service>
         </argument>
@@ -3698,7 +3762,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.context"/>
-            <argument>53600003edde8</argument>
+            <argument>5363d332cfe02</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
           </service>
         </argument>
@@ -4127,8 +4191,8 @@
       <argument type="collection"/>
       <argument type="collection"/>
     </service>
-    <service id="doctrine.orm.default_entity_manager" class="EntityManager536000041229b_546a8d27f194334ee012bfe64f629947b07e4919\__CG__\Doctrine\ORM\EntityManager">
-      <file>/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/app/cache/dev/jms_diextra/doctrine/EntityManager_536000041229b.php</file>
+    <service id="doctrine.orm.default_entity_manager" class="EntityManager5363d332eaec6_546a8d27f194334ee012bfe64f629947b07e4919\__CG__\Doctrine\ORM\EntityManager">
+      <file>/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/app/cache/dev/jms_diextra/doctrine/EntityManager_5363d332eaec6.php</file>
       <argument type="service">
         <service class="Doctrine\ORM\EntityManager" factory-method="create" public="false">
           <argument type="service" id="doctrine.dbal.default_connection"/>
@@ -5352,6 +5416,21 @@
       <argument>getGenderList</argument>
       <argument>sonata_user_gender</argument>
     </service>
+    <service id="sonata.user.google.authenticator" class="Google\Authenticator\GoogleAuthenticator"/>
+    <service id="sonata.user.google.authenticator.provider" class="Sonata\UserBundle\GoogleAuthenticator\Helper">
+      <argument>localhost</argument>
+      <argument type="service" id="sonata.user.google.authenticator"/>
+    </service>
+    <service id="sonata.user.google.authenticator.interactive_login_listener" class="Sonata\UserBundle\GoogleAuthenticator\InteractiveLoginListener">
+      <tag name="kernel.event_listener" event="security.interactive_login" method="onSecurityInteractiveLogin"/>
+      <argument type="service" id="sonata.user.google.authenticator.provider"/>
+    </service>
+    <service id="sonata.user.google.authenticator.request_listener" class="Sonata\UserBundle\GoogleAuthenticator\RequestListener">
+      <tag name="kernel.event_listener" event="kernel.request" method="onCoreRequest" priority="-1"/>
+      <argument type="service" id="sonata.user.google.authenticator.provider"/>
+      <argument type="service" id="security.context"/>
+      <argument type="service" id="templating"/>
+    </service>
     <service id="sonata.user.twig.global" class="Sonata\UserBundle\Twig\GlobalVariables">
       <argument type="service" id="service_container"/>
     </service>
@@ -5708,6 +5787,10 @@
       <call method="addPath">
         <argument>/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/sonata-project/user-bundle/Sonata/UserBundle/Resources/views</argument>
         <argument>SonataUser</argument>
+      </call>
+      <call method="addPath">
+        <argument>/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/src/Application/Sonata/UserBundle/Resources/views</argument>
+        <argument>ApplicationSonataUser</argument>
       </call>
       <call method="addPath">
         <argument>/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/src/FT/DefaultBundle/Resources/views</argument>

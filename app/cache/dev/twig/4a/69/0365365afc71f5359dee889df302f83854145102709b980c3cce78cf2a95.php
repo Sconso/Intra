@@ -59,37 +59,37 @@ class __TwigTemplate_4a690365365afc71f5359dee889df302f83854145102709b980c3cce78c
         ";
         // line 11
         $this->displayBlock('header', $context, $blocks);
-        // line 14
+        // line 15
         echo "    </header>
 
     <nav>
         ";
-        // line 17
+        // line 18
         $this->displayBlock('nav', $context, $blocks);
-        // line 20
+        // line 21
         echo "    </nav>
 
     <div id=\"content\">
         <aside>
             ";
-        // line 24
+        // line 25
         $this->displayBlock('menu', $context, $blocks);
-        // line 26
+        // line 27
         echo "        </aside>
         
         <main>
             ";
-        // line 29
+        // line 30
         $this->displayBlock('main', $context, $blocks);
-        // line 32
+        // line 33
         echo "        </main>
     </div>
 
     <footer>
         ";
-        // line 36
+        // line 37
         $this->displayBlock('footer', $context, $blocks);
-        // line 39
+        // line 40
         echo "        <div id=\"copyright\">
             <span>
                 Best intra ever.<br />
@@ -104,37 +104,38 @@ class __TwigTemplate_4a690365365afc71f5359dee889df302f83854145102709b980c3cce78c
     public function block_header($context, array $blocks = array())
     {
         // line 12
-        echo "
+        echo "        <div id=\"account\">
+        </div>
         ";
     }
 
-    // line 17
+    // line 18
     public function block_nav($context, array $blocks = array())
     {
-        // line 18
-        echo "        
+        // line 19
+        echo "        <a id=\"home\" href=\"/\"></a>
         ";
     }
 
-    // line 24
+    // line 25
     public function block_menu($context, array $blocks = array())
     {
-        // line 25
+        // line 26
         echo "            ";
     }
 
-    // line 29
+    // line 30
     public function block_main($context, array $blocks = array())
     {
-        // line 30
+        // line 31
         echo "
             ";
     }
 
-    // line 36
+    // line 37
     public function block_footer($context, array $blocks = array())
     {
-        // line 37
+        // line 38
         echo "
         ";
     }
@@ -151,6 +152,6 @@ class __TwigTemplate_4a690365365afc71f5359dee889df302f83854145102709b980c3cce78c
 
     public function getDebugInfo()
     {
-        return array (  138 => 37,  135 => 36,  130 => 30,  127 => 29,  123 => 25,  120 => 24,  115 => 18,  112 => 17,  107 => 12,  104 => 11,  93 => 39,  91 => 36,  85 => 32,  83 => 29,  78 => 26,  76 => 24,  70 => 20,  68 => 17,  63 => 14,  61 => 11,  58 => 10,  55 => 9,  49 => 6,  44 => 5,  41 => 4,  35 => 3,);
+        return array (  139 => 38,  136 => 37,  131 => 31,  128 => 30,  124 => 26,  121 => 25,  116 => 19,  113 => 18,  107 => 12,  104 => 11,  93 => 40,  91 => 37,  85 => 33,  83 => 30,  78 => 27,  76 => 25,  70 => 21,  68 => 18,  63 => 15,  61 => 11,  58 => 10,  55 => 9,  49 => 6,  44 => 5,  41 => 4,  35 => 3,);
     }
 }

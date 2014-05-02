@@ -324,6 +324,10 @@ class appDevDebugProjectContainer extends Container
             'sonata.user.editable_role_builder' => 'getSonata_User_EditableRoleBuilderService',
             'sonata.user.form.gender_list' => 'getSonata_User_Form_GenderListService',
             'sonata.user.form.type.security_roles' => 'getSonata_User_Form_Type_SecurityRolesService',
+            'sonata.user.google.authenticator' => 'getSonata_User_Google_AuthenticatorService',
+            'sonata.user.google.authenticator.interactive_login_listener' => 'getSonata_User_Google_Authenticator_InteractiveLoginListenerService',
+            'sonata.user.google.authenticator.provider' => 'getSonata_User_Google_Authenticator_ProviderService',
+            'sonata.user.google.authenticator.request_listener' => 'getSonata_User_Google_Authenticator_RequestListenerService',
             'sonata.user.profile.form' => 'getSonata_User_Profile_FormService',
             'sonata.user.profile.form.handler' => 'getSonata_User_Profile_Form_HandlerService',
             'sonata.user.profile.form.type' => 'getSonata_User_Profile_Form_TypeService',
@@ -701,11 +705,11 @@ class appDevDebugProjectContainer extends Container
      * This service is shared.
      * This method always returns the same instance of the service.
      *
-     * @return EntityManager536000041229b_546a8d27f194334ee012bfe64f629947b07e4919\__CG__\Doctrine\ORM\EntityManager A EntityManager536000041229b_546a8d27f194334ee012bfe64f629947b07e4919\__CG__\Doctrine\ORM\EntityManager instance.
+     * @return EntityManager5363d332eaec6_546a8d27f194334ee012bfe64f629947b07e4919\__CG__\Doctrine\ORM\EntityManager A EntityManager5363d332eaec6_546a8d27f194334ee012bfe64f629947b07e4919\__CG__\Doctrine\ORM\EntityManager instance.
      */
     protected function getDoctrine_Orm_DefaultEntityManagerService()
     {
-        require_once '/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/app/cache/dev/jms_diextra/doctrine/EntityManager_536000041229b.php';
+        require_once '/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/app/cache/dev/jms_diextra/doctrine/EntityManager_5363d332eaec6.php';
 
         $a = new \Doctrine\Common\Cache\ArrayCache();
         $a->setNamespace('sf2orm_default_e0de9c412332f9e2b803fcb0711d47fc');
@@ -740,7 +744,7 @@ class appDevDebugProjectContainer extends Container
         $g = call_user_func(array('Doctrine\\ORM\\EntityManager', 'create'), $this->get('doctrine.dbal.default_connection'), $f);
         $this->get('doctrine.orm.default_manager_configurator')->configure($g);
 
-        return $this->services['doctrine.orm.default_entity_manager'] = new \EntityManager536000041229b_546a8d27f194334ee012bfe64f629947b07e4919\__CG__\Doctrine\ORM\EntityManager($g, $this);
+        return $this->services['doctrine.orm.default_entity_manager'] = new \EntityManager5363d332eaec6_546a8d27f194334ee012bfe64f629947b07e4919\__CG__\Doctrine\ORM\EntityManager($g, $this);
     }
 
     /**
@@ -799,6 +803,8 @@ class appDevDebugProjectContainer extends Container
         $instance->addListenerService('kernel.request', array(0 => 'assetic.request_listener', 1 => 'onKernelRequest'), 0);
         $instance->addListenerService('kernel.response', array(0 => 'sonata.block.cache.handler.default', 1 => 'onKernelResponse'), 0);
         $instance->addListenerService('security.interactive_login', array(0 => 'fos_user.security.interactive_login_listener', 1 => 'onSecurityInteractiveLogin'), 0);
+        $instance->addListenerService('security.interactive_login', array(0 => 'sonata.user.google.authenticator.interactive_login_listener', 1 => 'onSecurityInteractiveLogin'), 0);
+        $instance->addListenerService('kernel.request', array(0 => 'sonata.user.google.authenticator.request_listener', 1 => 'onCoreRequest'), -1);
         $instance->addSubscriberService('response_listener', 'Symfony\\Component\\HttpKernel\\EventListener\\ResponseListener');
         $instance->addSubscriberService('streamed_response_listener', 'Symfony\\Component\\HttpKernel\\EventListener\\StreamedResponseListener');
         $instance->addSubscriberService('locale_listener', 'Symfony\\Component\\HttpKernel\\EventListener\\LocaleListener');
@@ -2519,7 +2525,7 @@ class appDevDebugProjectContainer extends Container
         $g = new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessHandler($a, array('login_path' => '/admin/login', 'use_referer' => true, 'always_use_default_target_path' => false, 'default_target_path' => '/', 'target_path_parameter' => '_target_path'));
         $g->setProviderKey('admin');
 
-        return $this->services['security.firewall.map.context.admin'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => $this->get('security.channel_listener'), 1 => $this->get('security.context_listener.0'), 2 => $f, 3 => new \Symfony\Component\Security\Http\Firewall\UsernamePasswordFormAuthenticationListener($b, $this->get('security.authentication.manager'), $this->get('security.authentication.session_strategy'), $a, 'admin', $g, new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationFailureHandler($c, $a, array('login_path' => '/admin/login', 'failure_path' => NULL, 'failure_forward' => false, 'failure_path_parameter' => '_failure_path'), $d), array('check_path' => '/admin/login_check', 'use_forward' => false, 'require_previous_session' => true, 'username_parameter' => '_username', 'password_parameter' => '_password', 'csrf_parameter' => '_csrf_token', 'intention' => 'authenticate', 'post_only' => true), $d, $e), 4 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($b, '53600003edde8', $d), 5 => $this->get('security.access_listener'), 6 => new \Symfony\Component\Security\Http\Firewall\SwitchUserListener($b, $this->get('fos_user.user_manager'), $this->get('security.user_checker'), 'admin', $this->get('security.access.decision_manager'), $d, '_switch_user', 'ROLE_ALLOWED_TO_SWITCH', $e)), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($b, $this->get('security.authentication.trust_resolver'), $a, 'admin', new \Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint($c, $a, '/admin/login', false), NULL, NULL, $d));
+        return $this->services['security.firewall.map.context.admin'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => $this->get('security.channel_listener'), 1 => $this->get('security.context_listener.0'), 2 => $f, 3 => new \Symfony\Component\Security\Http\Firewall\UsernamePasswordFormAuthenticationListener($b, $this->get('security.authentication.manager'), $this->get('security.authentication.session_strategy'), $a, 'admin', $g, new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationFailureHandler($c, $a, array('login_path' => '/admin/login', 'failure_path' => NULL, 'failure_forward' => false, 'failure_path_parameter' => '_failure_path'), $d), array('check_path' => '/admin/login_check', 'use_forward' => false, 'require_previous_session' => true, 'username_parameter' => '_username', 'password_parameter' => '_password', 'csrf_parameter' => '_csrf_token', 'intention' => 'authenticate', 'post_only' => true), $d, $e), 4 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($b, '5363d332cfe02', $d), 5 => $this->get('security.access_listener'), 6 => new \Symfony\Component\Security\Http\Firewall\SwitchUserListener($b, $this->get('fos_user.user_manager'), $this->get('security.user_checker'), 'admin', $this->get('security.access.decision_manager'), $d, '_switch_user', 'ROLE_ALLOWED_TO_SWITCH', $e)), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($b, $this->get('security.authentication.trust_resolver'), $a, 'admin', new \Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint($c, $a, '/admin/login', false), NULL, NULL, $d));
     }
 
     /**
@@ -2544,7 +2550,7 @@ class appDevDebugProjectContainer extends Container
         $g = new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessHandler($a, array('login_path' => '/login', 'always_use_default_target_path' => false, 'default_target_path' => '/', 'target_path_parameter' => '_target_path', 'use_referer' => false));
         $g->setProviderKey('main');
 
-        return $this->services['security.firewall.map.context.main'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => $this->get('security.channel_listener'), 1 => $this->get('security.context_listener.0'), 2 => $f, 3 => new \Symfony\Component\Security\Http\Firewall\UsernamePasswordFormAuthenticationListener($b, $this->get('security.authentication.manager'), $this->get('security.authentication.session_strategy'), $a, 'main', $g, new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationFailureHandler($c, $a, array('login_path' => '/login', 'failure_path' => NULL, 'failure_forward' => false, 'failure_path_parameter' => '_failure_path'), $d), array('check_path' => '/login_check', 'use_forward' => false, 'require_previous_session' => true, 'username_parameter' => '_username', 'password_parameter' => '_password', 'csrf_parameter' => '_csrf_token', 'intention' => 'authenticate', 'post_only' => true), $d, $e), 4 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($b, '53600003edde8', $d), 5 => $this->get('security.access_listener'), 6 => new \Symfony\Component\Security\Http\Firewall\SwitchUserListener($b, $this->get('fos_user.user_manager'), $this->get('security.user_checker'), 'main', $this->get('security.access.decision_manager'), $d, '_switch_user', 'ROLE_ALLOWED_TO_SWITCH', $e)), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($b, $this->get('security.authentication.trust_resolver'), $a, 'main', new \Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint($c, $a, '/login', false), NULL, NULL, $d));
+        return $this->services['security.firewall.map.context.main'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => $this->get('security.channel_listener'), 1 => $this->get('security.context_listener.0'), 2 => $f, 3 => new \Symfony\Component\Security\Http\Firewall\UsernamePasswordFormAuthenticationListener($b, $this->get('security.authentication.manager'), $this->get('security.authentication.session_strategy'), $a, 'main', $g, new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationFailureHandler($c, $a, array('login_path' => '/login', 'failure_path' => NULL, 'failure_forward' => false, 'failure_path_parameter' => '_failure_path'), $d), array('check_path' => '/login_check', 'use_forward' => false, 'require_previous_session' => true, 'username_parameter' => '_username', 'password_parameter' => '_password', 'csrf_parameter' => '_csrf_token', 'intention' => 'authenticate', 'post_only' => true), $d, $e), 4 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($b, '5363d332cfe02', $d), 5 => $this->get('security.access_listener'), 6 => new \Symfony\Component\Security\Http\Firewall\SwitchUserListener($b, $this->get('fos_user.user_manager'), $this->get('security.user_checker'), 'main', $this->get('security.access.decision_manager'), $d, '_switch_user', 'ROLE_ALLOWED_TO_SWITCH', $e)), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($b, $this->get('security.authentication.trust_resolver'), $a, 'main', new \Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint($c, $a, '/login', false), NULL, NULL, $d));
     }
 
     /**
@@ -4247,6 +4253,58 @@ class appDevDebugProjectContainer extends Container
     }
 
     /**
+     * Gets the 'sonata.user.google.authenticator' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return Google\Authenticator\GoogleAuthenticator A Google\Authenticator\GoogleAuthenticator instance.
+     */
+    protected function getSonata_User_Google_AuthenticatorService()
+    {
+        return $this->services['sonata.user.google.authenticator'] = new \Google\Authenticator\GoogleAuthenticator();
+    }
+
+    /**
+     * Gets the 'sonata.user.google.authenticator.interactive_login_listener' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return Sonata\UserBundle\GoogleAuthenticator\InteractiveLoginListener A Sonata\UserBundle\GoogleAuthenticator\InteractiveLoginListener instance.
+     */
+    protected function getSonata_User_Google_Authenticator_InteractiveLoginListenerService()
+    {
+        return $this->services['sonata.user.google.authenticator.interactive_login_listener'] = new \Sonata\UserBundle\GoogleAuthenticator\InteractiveLoginListener($this->get('sonata.user.google.authenticator.provider'));
+    }
+
+    /**
+     * Gets the 'sonata.user.google.authenticator.provider' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return Sonata\UserBundle\GoogleAuthenticator\Helper A Sonata\UserBundle\GoogleAuthenticator\Helper instance.
+     */
+    protected function getSonata_User_Google_Authenticator_ProviderService()
+    {
+        return $this->services['sonata.user.google.authenticator.provider'] = new \Sonata\UserBundle\GoogleAuthenticator\Helper('localhost', $this->get('sonata.user.google.authenticator'));
+    }
+
+    /**
+     * Gets the 'sonata.user.google.authenticator.request_listener' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return Sonata\UserBundle\GoogleAuthenticator\RequestListener A Sonata\UserBundle\GoogleAuthenticator\RequestListener instance.
+     */
+    protected function getSonata_User_Google_Authenticator_RequestListenerService()
+    {
+        return $this->services['sonata.user.google.authenticator.request_listener'] = new \Sonata\UserBundle\GoogleAuthenticator\RequestListener($this->get('sonata.user.google.authenticator.provider'), $this->get('security.context'), $this->get('templating'));
+    }
+
+    /**
      * Gets the 'sonata.user.profile.form' service.
      *
      * This service is shared.
@@ -5047,7 +5105,9 @@ class appDevDebugProjectContainer extends Container
         $instance->addResource('xlf', '/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.sv.xlf', 'sv', 'validators');
         $instance->addResource('xlf', '/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.tr.xlf', 'tr', 'validators');
         $instance->addResource('xlf', '/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.uk.xlf', 'uk', 'validators');
+        $instance->addResource('xlf', '/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.vi.xlf', 'vi', 'validators');
         $instance->addResource('xlf', '/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.zh_CN.xlf', 'zh_CN', 'validators');
+        $instance->addResource('xlf', '/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.zh_TW.xlf', 'zh_TW', 'validators');
         $instance->addResource('xlf', '/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.ar.xlf', 'ar', 'validators');
         $instance->addResource('xlf', '/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.bg.xlf', 'bg', 'validators');
         $instance->addResource('xlf', '/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.ca.xlf', 'ca', 'validators');
@@ -5087,8 +5147,10 @@ class appDevDebugProjectContainer extends Container
         $instance->addResource('xlf', '/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.sr_Latn.xlf', 'sr_Latn', 'validators');
         $instance->addResource('xlf', '/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.sv.xlf', 'sv', 'validators');
         $instance->addResource('xlf', '/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.ua.xlf', 'ua', 'validators');
+        $instance->addResource('xlf', '/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.uk.xlf', 'uk', 'validators');
         $instance->addResource('xlf', '/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.zh_CN.xlf', 'zh_CN', 'validators');
         $instance->addResource('xlf', '/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.ar.xlf', 'ar', 'security');
+        $instance->addResource('xlf', '/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.bg.xlf', 'bg', 'security');
         $instance->addResource('xlf', '/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.ca.xlf', 'ca', 'security');
         $instance->addResource('xlf', '/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.cs.xlf', 'cs', 'security');
         $instance->addResource('xlf', '/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.da.xlf', 'da', 'security');
@@ -5099,7 +5161,9 @@ class appDevDebugProjectContainer extends Container
         $instance->addResource('xlf', '/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.fa.xlf', 'fa', 'security');
         $instance->addResource('xlf', '/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.fr.xlf', 'fr', 'security');
         $instance->addResource('xlf', '/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.gl.xlf', 'gl', 'security');
+        $instance->addResource('xlf', '/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.hr.xlf', 'hr', 'security');
         $instance->addResource('xlf', '/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.hu.xlf', 'hu', 'security');
+        $instance->addResource('xlf', '/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.id.xlf', 'id', 'security');
         $instance->addResource('xlf', '/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.it.xlf', 'it', 'security');
         $instance->addResource('xlf', '/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.ja.xlf', 'ja', 'security');
         $instance->addResource('xlf', '/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.lb.xlf', 'lb', 'security');
@@ -5117,6 +5181,8 @@ class appDevDebugProjectContainer extends Container
         $instance->addResource('xlf', '/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.sv.xlf', 'sv', 'security');
         $instance->addResource('xlf', '/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.tr.xlf', 'tr', 'security');
         $instance->addResource('xlf', '/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.ua.xlf', 'ua', 'security');
+        $instance->addResource('xlf', '/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.vi.xlf', 'vi', 'security');
+        $instance->addResource('xlf', '/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/../../Resources/translations/security.zh_CN.xlf', 'zh_CN', 'security');
         $instance->addResource('xliff', '/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/sonata-project/admin-bundle/Sonata/AdminBundle/Resources/translations/SonataAdminBundle.bg.xliff', 'bg', 'SonataAdminBundle');
         $instance->addResource('xliff', '/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/sonata-project/admin-bundle/Sonata/AdminBundle/Resources/translations/SonataAdminBundle.ca.xliff', 'ca', 'SonataAdminBundle');
         $instance->addResource('xliff', '/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/sonata-project/admin-bundle/Sonata/AdminBundle/Resources/translations/SonataAdminBundle.cs.xliff', 'cs', 'SonataAdminBundle');
@@ -5307,6 +5373,7 @@ class appDevDebugProjectContainer extends Container
         $instance->addPath('/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/sonata-project/doctrine-orm-admin-bundle/Sonata/DoctrineORMAdminBundle/Resources/views', 'SonataDoctrineORMAdmin');
         $instance->addPath('/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/views', 'FOSUser');
         $instance->addPath('/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/sonata-project/user-bundle/Sonata/UserBundle/Resources/views', 'SonataUser');
+        $instance->addPath('/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/src/Application/Sonata/UserBundle/Resources/views', 'ApplicationSonataUser');
         $instance->addPath('/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/src/FT/DefaultBundle/Resources/views', 'FTDefault');
         $instance->addPath('/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/symfony/symfony/src/Symfony/Bundle/WebProfilerBundle/Resources/views', 'WebProfiler');
         $instance->addPath('/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/vendor/sensio/distribution-bundle/Sensio/Bundle/DistributionBundle/Resources/views', 'SensioDistribution');
@@ -5629,7 +5696,7 @@ class appDevDebugProjectContainer extends Container
         $b = $this->get('security.user_checker');
         $c = $this->get('security.encoder_factory');
 
-        $this->services['security.authentication.manager'] = $instance = new \Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager(array(0 => new \Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider($a, $b, 'admin', $c, true), 1 => new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('53600003edde8'), 2 => new \Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider($a, $b, 'main', $c, true), 3 => new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('53600003edde8')), true);
+        $this->services['security.authentication.manager'] = $instance = new \Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager(array(0 => new \Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider($a, $b, 'admin', $c, true), 1 => new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('5363d332cfe02'), 2 => new \Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider($a, $b, 'main', $c, true), 3 => new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('5363d332cfe02')), true);
 
         $instance->setEventDispatcher($this->get('event_dispatcher'));
 
@@ -6485,8 +6552,8 @@ class appDevDebugProjectContainer extends Container
             'jms_di_extra.cache_warmer.controller_file_blacklist' => array(
 
             ),
-            'jms_di_extra.doctrine_integration.entity_manager.file' => '/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/app/cache/dev/jms_diextra/doctrine/EntityManager_536000041229b.php',
-            'jms_di_extra.doctrine_integration.entity_manager.class' => 'EntityManager536000041229b_546a8d27f194334ee012bfe64f629947b07e4919\\__CG__\\Doctrine\\ORM\\EntityManager',
+            'jms_di_extra.doctrine_integration.entity_manager.file' => '/Volumes/Data/nfs/zfs-student-4/users/2013/sconso/mamp/apps/symfony/htdocs/app/cache/dev/jms_diextra/doctrine/EntityManager_5363d332eaec6.php',
+            'jms_di_extra.doctrine_integration.entity_manager.class' => 'EntityManager5363d332eaec6_546a8d27f194334ee012bfe64f629947b07e4919\\__CG__\\Doctrine\\ORM\\EntityManager',
             'security.secured_services' => array(
 
             ),
@@ -6825,12 +6892,12 @@ class appDevDebugProjectContainer extends Container
             'sonata.user.admin.user.controller' => 'SonataAdminBundle:CRUD',
             'sonata.user.admin.group.controller' => 'SonataAdminBundle:CRUD',
             'sonata.user.impersonating' => array(
-                'route' => 'homepage',
+                'route' => 'ft_default_homepage',
                 'parameters' => array(
 
                 ),
             ),
-            'sonata.user.google.authenticator.enabled' => false,
+            'sonata.user.google.authenticator.enabled' => true,
             'sonata.user.profile.form.type' => 'sonata_user_profile',
             'sonata.user.profile.form.name' => 'sonata_user_profile_form',
             'sonata.user.profile.form.validation_groups' => array(
